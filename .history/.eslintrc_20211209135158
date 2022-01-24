@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    // "no-console": "warn",
+    "semi":"warn",
+    "no-unused-expressions": 0,
+    "no-multiple-empty-lines":  ["warn", { "max": 1, "maxEOF": 0 }],
+    "no-trailing-spaces": "warn",
+    "spaced-comment": "warn"
+  }
+}
