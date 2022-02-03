@@ -1,3 +1,4 @@
+import CustomersRepository from 'dist/modules/customers/typeorm/repositories/CustomersRepository';
 import { Request, Response } from 'express';
 import CreateCustomerService from '../../../services/CreateCustomerService';
 import DeleteCustomerService from '../../../services/DeleteCustomerService';

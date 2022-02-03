@@ -32,4 +32,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
+  "include": [
+    "./**/*"
+    ],
+    "exclude": [
+        "./build/**/*" // This is what fixed it!
+    ]
 }
