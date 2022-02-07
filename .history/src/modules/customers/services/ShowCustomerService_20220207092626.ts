@@ -1,4 +1,4 @@
-import { inject, injectable } from 'tsyringe';
+import { inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Customer from '../infra/typeorm/entities/Customer';
 import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';

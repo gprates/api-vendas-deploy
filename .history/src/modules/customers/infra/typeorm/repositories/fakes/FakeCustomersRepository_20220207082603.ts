@@ -1,5 +1,4 @@
 import { ICreateCustomer } from '@modules/customers/domain/models/ICreateCustomer';
-import { ICustomerPaginate } from '@modules/customers/domain/models/ICustomerPaginate';
 import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
 import { getRepository, Repository } from 'typeorm';
 import Customer from '../entities/Customer';
@@ -20,22 +19,6 @@ export class CustomersRepository implements ICustomersRepository {
     public async save(customer: Customer): Promise<Customer> {
         await this.ormRepository.save(customer);
         return customer;
-    }
-
-    public async remove(customer: Customer): Promise<void> {
-        await this.ormRepository.remove(customer);
-    }
-
-    public async findAll(): Promise<Customer[] | undefined> {
-        const customers = await this.ormRepository.find();
-
-        return customers;
-    }
-
-    public async findAllPaginate(): Promise<ICustomerPaginate> {
-        const customers = await this.ormRepository.createQueryBuilder().paginate();
-
-        return customers as ICustomerPaginate;
     }
 
     public async findByName(name: string): Promise<Customer | undefined> {

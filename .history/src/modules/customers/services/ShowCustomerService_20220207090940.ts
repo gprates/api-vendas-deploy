@@ -1,4 +1,4 @@
-import { inject, injectable } from 'tsyringe';
+import { inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Customer from '../infra/typeorm/entities/Customer';
 import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
@@ -6,7 +6,6 @@ import { getCustomRepository } from 'typeorm';
 import { IShowCustomer } from '../domain/models/IShowCustomer';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 
-@injectable()
 class ShowCustomerService {
     constructor(
         @inject('CustomersRepository')

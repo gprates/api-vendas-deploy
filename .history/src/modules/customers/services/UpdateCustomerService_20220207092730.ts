@@ -3,16 +3,8 @@ import AppError from '@shared/errors/AppError';
 import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
 import { IUpdateCustomer } from '../domain/models/IUpdateCustomer';
-import { inject, injectable } from 'tsyringe';
-import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 
-@injectable()
 class UpdateCustomerService {
-    constructor(
-        @inject('CustomersRepository')
-        private customersRepository: ICustomersRepository
-    ) {}
-
     public async execute({ id, name, email }: IUpdateCustomer): Promise<Customer> {
         const customersRepository = getCustomRepository(CustomersRepository);
 

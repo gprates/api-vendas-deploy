@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { ICustomerPaginate } from '../domain/models/ICustomerPaginate';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
+import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
 
 @injectable()
 class ListCustomerService {
