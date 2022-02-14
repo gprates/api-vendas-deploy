@@ -1,7 +1,8 @@
 import AppError from '@shared/errors/AppError';
+import { compare } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
-import User from '../infra/typeorm/entities/User';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import User from '../typeorm/entities/User';
+import UsersRepository from '../typeorm/repositories/UsersRepository';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import { inject } from 'tsyringe';
@@ -31,7 +32,7 @@ class CreateSessionsService {
             throw new AppError('Incorrect email or password combination.', 401);
         }
 
-        const passwordConfirmed = await this.hashProvider.compareHash(password, user.password);
+        const passwordConfirmed = await compare(password, user.password);
 
         if (!passwordConfirmed) {
             throw new AppError('Incorrect email or password combination.', 401);
