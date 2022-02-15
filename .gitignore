@@ -7,6 +7,8 @@ temp/
 coverage
 ormconfig.json
 dist
+.docker/dbdata
+.history
 
 uploads/*
 !uploads/.gitkeep
