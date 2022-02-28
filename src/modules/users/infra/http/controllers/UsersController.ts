@@ -1,9 +1,9 @@
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
-import CreateUserService from '../services/CreateUserService';
-import DeleteUserService from '../services/DeleteUserService';
-import ListUserService from '../services/ListUserService';
-import ShowUserService from '../services/ShowUserService';
+import CreateUserService from '../../../services/CreateUserService';
+import DeleteUserService from '../../../services/DeleteUserService';
+import ListUserService from '../../../services/ListUserService';
+import ShowUserService from '../../../services/ShowUserService';
 
 export default class UsersController {
     public async index(request: Request, response: Response): Promise<Response> {
