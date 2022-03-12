@@ -2,8 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { ICreateCustomer } from '@modules/customers/domain/models/ICreateCustomer';
 import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import { ICustomerPaginate } from '@modules/customers/domain/models/ICustomerPaginate';
 
-export class FakeCustomersRepository implements Omit<ICustomersRepository, 'remove' | 'findAll' | 'findAllPaginate'> {
+export class FakeCustomersRepository implements ICustomersRepository {
     private customers: Customer[] = [];
 
     public async create({name, email}: ICreateCustomer): Promise<Customer> {
@@ -27,6 +28,30 @@ export class FakeCustomersRepository implements Omit<ICustomersRepository, 'remo
 
         return customer;
     }
+
+    public async findAll(): Promise<Customer[]> {
+        return this.customers;
+    }
+
+    public async remove(customer: Customer): Promise<void> {
+        customer;
+        return;
+    }
+
+    public async findAllPaginate(): Promise<ICustomerPaginate> {
+        const customersPaginate = {
+          from: 1,
+          to: 1,
+          per_page: 1,
+          total: 1,
+          current_page: 1,
+          prev_page: null,
+          next_page: null,
+          data: this.customers,
+        };
+
+        return customersPaginate;
+      }
 
     public async findByName(name: string): Promise<Customer | undefined> {
         const customer = this.customers.find(customer => customer.name === name);

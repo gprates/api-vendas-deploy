@@ -1,12 +1,9 @@
 import { ICreateProduct } from '@modules/products/domain/models/ICreateProduct';
+import { IFindProducts } from '@modules/products/domain/models/IFindProducts';
 import { IProductPaginate } from '@modules/products/domain/models/IPaginateProducts';
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository';
 import { EntityRepository, getRepository, In, Repository } from 'typeorm';
 import Product from '../entities/Product';
-
-interface IFindProducts {
-    id: string;
-}
 
 @EntityRepository(Product)
 export default class ProductsRepository implements IProductsRepository {
