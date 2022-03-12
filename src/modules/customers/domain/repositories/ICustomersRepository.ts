@@ -4,7 +4,7 @@ import { ICustomerPaginate } from '../models/ICustomerPaginate';
 
 export interface ICustomersRepository {
   findAll?(): Promise<ICustomer[] | undefined>;
-  findAllPaginate?(): Promise<ICustomerPaginate>;
+  findAllPaginate(): Promise<ICustomerPaginate>;
   findByName(name: string): Promise<ICustomer | undefined>;
   findById(id: string): Promise<ICustomer | undefined>;
   findByEmail(email: string): Promise<ICustomer | undefined>;

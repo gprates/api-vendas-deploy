@@ -1,9 +1,9 @@
-import { instanceToInstance } from 'class-transformer';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
-import CreateUserService from '../services/CreateUserService';
-import DeleteUserService from '../services/DeleteUserService';
-import ListUserService from '../services/ListUserService';
-import ShowUserService from '../services/ShowUserService';
+import CreateUserService from '@modules/users/services/CreateUserService';
+import DeleteUserService from '@modules/users/services/DeleteUserService';
+import ListUserService from '@modules/users/services/ListUserService';
+import ShowUserService from '@modules/users/services/ShowUserService';
 
 export default class UsersController {
     public async index(request: Request, response: Response): Promise<Response> {
@@ -11,7 +11,7 @@ export default class UsersController {
 
         const users = await listUser.execute();
 
-        return response.json(instanceToInstance(users));
+        return response.json(classToClass(users));
     }
 
     public async show(request: Request, response: Response): Promise<Response> {
@@ -21,7 +21,7 @@ export default class UsersController {
 
         const user = await showUser.execute({ id });
 
-        return response.json(instanceToInstance(user));
+        return response.json(classToClass(user));
     }
 
     public async create(request: Request, response: Response): Promise<Response> {
@@ -31,7 +31,7 @@ export default class UsersController {
             password,
          } = request.body;
 
-        const createUser = new CreateUserService();
+        const createUser = new CreateUserService(password);
 
         const user = await createUser.execute({
             name,
@@ -39,7 +39,7 @@ export default class UsersController {
             password
         });
 
-        return response.json(instanceToInstance(user));
+        return response.json(classToClass(user));
     }
 
     public async delete(request: Request, response: Response): Promise<Response> {
