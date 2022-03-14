@@ -1,7 +1,7 @@
 import { ICreateUser } from '@modules/users/domain/models/ICreateUser';
-import { IUser } from '@modules/users/domain/models/IUser';
+import { IPaginateUser } from '@modules/users/domain/models/IPaginateUser';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Like, Repository } from 'typeorm';
 import User from '../entities/User';
 
 @EntityRepository(User)
@@ -13,9 +13,8 @@ export class UsersRepository implements IUsersRepository {
       this.ormRepository = getRepository(User);
     }
 
-    remove(user: IUser): Promise<void> {
-        user.id = 'cabrito';
-        throw new Error('Method not implemented.');
+    public async remove(user: User): Promise<void> {
+        await this.ormRepository.remove(user);
     }
 
     public async create({ name, email, password }: ICreateUser): Promise<User> {
@@ -30,6 +29,23 @@ export class UsersRepository implements IUsersRepository {
         await this.ormRepository.save(user);
 
         return user;
+      }
+
+      public async findAllPaginate(search: string): Promise<IPaginateUser> {
+        if (search) {
+            return (
+            await this.ormRepository
+            .createQueryBuilder()
+            .where([{ name: Like(`%${search}`)}, {email: Like(`%${search}`)}])
+            .orderBy(`User.name`, 'ASC')
+            .paginate()) as IPaginateUser;
+        }
+
+        return (
+            await this.ormRepository
+            .createQueryBuilder()
+            .orderBy('User.name', 'ASC')
+            .paginate()) as IPaginateUser;
       }
 
       public async findAll(): Promise<User[]> {

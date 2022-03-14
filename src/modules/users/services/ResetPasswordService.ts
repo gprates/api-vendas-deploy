@@ -1,22 +1,22 @@
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import { addHours, isAfter } from 'date-fns';
 import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import { IResetPassword } from '../domain/models/IResetPassword';
+import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
 
 @injectable()
 class ResetPasswordService {
     constructor(
         @inject('UsersRepository')
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
+        @inject('UserTokensRepository')
+        private userTokensRepository: IUserTokensRepository
     ) {}
-    public async execute({ token, password }: IResetPassword): Promise<void> {
-        const userTokensRepository = getCustomRepository(UserTokensRepository);
 
-        const userToken = await userTokensRepository.findByToken(token);
+    public async execute({ token, password }: IResetPassword): Promise<void> {
+        const userToken = await this.userTokensRepository.findByToken(token);
 
         if (!userToken) {
             throw new AppError('User token does not exists.');
